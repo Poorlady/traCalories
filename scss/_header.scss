@@ -1,0 +1,23 @@
+.header{
+    background-color: white;
+    padding: 1.5rem;
+
+    &__logo{
+        font-size: 1.5rem;
+        font-weight: 700;
+    }
+
+    &__cta{
+        background-color: #00bbf9;
+        transition: transform 200ms ease-in-out;
+
+        a{
+            color: white;
+        }
+
+        &:hover{
+            cursor: pointer;
+            transform: scale(1.05);
+        }
+    }
+}

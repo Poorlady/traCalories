@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,500;0,700;1,300;1,500;1,700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="./dist/css/style.css">
+    <title>TraCalories | Track your calories</title>
+</head>
+
+<body>
+    <header class="header">
+        <div class="container flex flex__jc_sb">
+            <p class="header__logo">TraCalories</p>
+            <div class="button header__cta">
+                <a href="http://">Clear All</a>
+            </div>
+        </div>
+    </header>
+
+    <section class="calories container">
+        <h1 class="calories__title">Add your food everytime you eat here!</h1>
+        <div class="flex">
+            <div class="calories__form_group flex flex__fd_c">
+                <input type="text" placeholder="Input your food here" name="food-name" id="food-name">
+                <label for="food-name">Name</label>
+            </div>
+            <div class="calories__form_group flex flex__fd_c">
+                <input type="number" placeholder="Input the food calories here" name="food-calories" id="food-calories">
+                <label for="food-calories">Calories</label>
+            </div>
+        </div>
+        <div class="flex">
+            <div id="add" class="add button ">Add Food</div>
+            <div id="edit" class="edit button ">Edit Food</div>
+            <div id="delete" class="delete button ">Delete Food</div>
+            <div id="goback" class="goback button">Go Back</div>
+        </div>
+    </section>
+
+    <section class="food container">
+        <div class="food__calories">
+            <h3>Total calories: <span class="food_total_calories">0</span></h3>
+        </div>
+        <div class="food__list">
+            <table id="food-table
+            " class="food__table">
+                <thead>
+                    <tr>
+                        <th>Number</th>
+                        <th>Food Name</th>
+                        <th>Food calories</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody id="food__table_body" class="fade-out">
+                    <!-- <tr>
+                        <td>1.</td>
+                        <td>Hamburger</td>
+                        <td>1200</td>
+                        <td>
+                            <div class="button"><i class="fas fa-pencil-alt"></i></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>2.</td>
+                        <td>Chicken Curry</td>
+                        <td>1500</td>
+                        <td>
+                            <div class="button"><i class="fas fa-pencil-alt"></i></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>3.</td>
+                        <td>Cookie</td>
+                        <td>300</td>
+                        <td>
+                            <div class="button"><i class="fas fa-pencil-alt"></i></div>
+                        </td>
+                    </tr> -->
+                </tbody>
+            </table>
+            <div class="food__empty fade-in" id="food-empty">
+                <p>no items</p>
+            </div>
+        </div>
+    </section>
+    <script src="https://kit.fontawesome.com/3c329d0e31.js" crossorigin="anonymous"></script>
+    <script src="./js/app.js"></script>
+</body>
+
+</html>
