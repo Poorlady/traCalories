@@ -33,13 +33,13 @@ const ItemCtrl = (function () {
   return {
     //   call create new item
     addItem: function (food, calories) {
-      console.log("here");
       return createNewItem(food, calories);
     },
     // set current item
     setCurrentItem: function (id) {
       const item = data.items.filter((item) => item.id === id);
-      data.currentItem = item;
+      console.log(item[0]);
+      data.currentItem = item[0];
       return data.currentItem;
     },
     // get total calories
@@ -52,6 +52,22 @@ const ItemCtrl = (function () {
       data.totalCalories = total;
       return total;
     },
+    editItem: function (input) {
+      const { food, calories } = input;
+
+      let updatedItem;
+
+      data.items.forEach((item) => {
+        if (item.id == data.currentItem.id) {
+          item.name = food;
+          item.calories = parseInt(calories);
+          this.getTotalCalories();
+          updatedItem = item;
+        }
+      });
+
+      return updatedItem;
+    },
     // return data
     getData: function () {
       return data;
@@ -63,6 +79,7 @@ const UICtrl = (function () {
   // all the element selectors needed
   let selectors = {
     tableBody: "#food__table_body",
+    tableBodyRow: "#food__table_body tr",
     foodName: "#food-name",
     foodCalories: "#food-calories",
     add: "#add",
@@ -112,6 +129,23 @@ const UICtrl = (function () {
       document
         .querySelector(selectors.tableBody)
         .insertAdjacentElement("beforeend", tr);
+    },
+    editRow: function (item) {
+      const rows = document.querySelectorAll(selectors.tableBodyRow);
+      let id;
+      Array.from(rows).forEach((row) => {
+        id = parseInt(row.getAttribute("id"));
+        if (id === item.id) {
+          document.getElementById(id).innerHTML = `
+            <td>${item.id + 1}.</td>
+            <td>${item.name}</td>
+            <td>${item.calories}</td>
+            <td>
+                <div class="button"><i class="fas fa-pencil-alt edit-btn"></i></div>
+            </td>
+          `;
+        }
+      });
     },
     // return value from input elements
     getInputValue: function () {
@@ -172,9 +206,10 @@ const UICtrl = (function () {
 const app = (function () {
   // add eventlistener to ui elements
   const loadEventListener = function () {
-    const { add, tableBody } = UICtrl.getSelectors();
+    const { add, tableBody, edit } = UICtrl.getSelectors();
     document.querySelector(add).addEventListener("click", addItem);
     document.querySelector(tableBody).addEventListener("click", editItem);
+    document.querySelector(edit).addEventListener("click", submitEdit);
   };
   //   add new item from the input value
   const addItem = function () {
@@ -195,8 +230,21 @@ const app = (function () {
       const id = e.target.parentNode.parentNode.parentNode.id;
       //   console.log(id);
       const currentItem = ItemCtrl.setCurrentItem(parseInt(id));
-      UICtrl.displayInput(...currentItem);
+      UICtrl.displayInput(currentItem);
     }
+  };
+
+  const submitEdit = function (e) {
+    const input = UICtrl.getInputValue();
+
+    const updateditem = ItemCtrl.editItem(input);
+
+    UICtrl.editRow(updateditem);
+    const totalCalories = ItemCtrl.getTotalCalories();
+    UICtrl.displayCalories(totalCalories);
+
+    UICtrl.emptyInput();
+    UICtrl.initState();
   };
 
   return {

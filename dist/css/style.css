@@ -142,6 +142,7 @@ body {
 }
 
 .goback {
+  margin-left: auto;
   display: none;
 }
 
